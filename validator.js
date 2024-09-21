@@ -1,3 +1,4 @@
+import { showToastMessage } from './toastMessage.js';
 function Validator(option){
 
     function getParent(inputElement, selector){
@@ -14,6 +15,7 @@ function Validator(option){
         var errorElement = getParent(inputElement, option.group).querySelector(option.errorBlock);
         var rules = selectorRules[rule.selector];
         var check = true;
+        var errorMessage;
         for(var i = 0; i < rules.length; i++){
             switch(inputElement.type){
                 case 'radio': case 'checkbox':
@@ -79,9 +81,9 @@ function Validator(option){
 
                 option.onSubmit(formValue);
 
-
+                showToastMessage('Registered successfully!','success','Congratulations on your successful account registration');
             }
-        }
+        } else showToastMessage('Registration failed!','error','Please fill in the information completely and accurately');
     }
     var selectorRules = {};
     var formElement = document.querySelector(option.form);
@@ -175,3 +177,27 @@ Validator.isRequireCheck = function(selector, message){
         }
     }
 }
+
+//Call function
+Validator({
+    chat: 'hello',
+    form: '#form-1',
+    errorBlock: '.form-warning',
+    group: '.form-group',
+    rules: [
+        Validator.isRequire('#username','Please enter your username!'),
+        Validator.isUsername('#username', 'Invalid username!'),
+        Validator.isRequire('#email', 'Please enter your email!'),
+        Validator.isEmail('#email', 'Invalid email!'),
+        Validator.isRequire('#password', 'Please enter your password!'),
+        Validator.isPasswordMinLength('#password', 6),
+        Validator.isRequire('#password-confirm','Please confirm your password!'),
+        Validator.isConfirmPassword('#password-confirm', function(){
+            return document.querySelector('#form-1 #password').value;
+        }, 'Passwords do not match!'),
+        Validator.isRequireCheck('input[name="age"]',"Cannot be left blank!")
+    ],
+    onSubmit: function(data){
+        console.log(data);
+    }
+});

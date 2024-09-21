@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
@@ -49,38 +52,15 @@
                     <span class="form-warning"></span>
                 </div>
 
-                <button class="button">Sign Up</button>
+                <button class="button btn" id="btn" type='success'>Sign Up</button>
             </form>
+            <div id="toast"></div>
         </div>
+        
     </div>
 
 
-    <script src="validator.js"></script>
-    <script>
-        
-        Validator({
-            chat: 'hello',
-            form: '#form-1',
-            errorBlock: '.form-warning',
-            group: '.form-group',
-            rules: [
-                Validator.isRequire('#username','Please enter your username!'),
-                Validator.isUsername('#username', 'Invalid username!'),
-                Validator.isRequire('#email', 'Please enter your email!'),
-                Validator.isEmail('#email', 'Invalid email!'),
-                Validator.isRequire('#password', 'Please enter your password!'),
-                Validator.isPasswordMinLength('#password', 6),
-                Validator.isRequire('#password-confirm','Please confirm your password!'),
-                Validator.isConfirmPassword('#password-confirm', function(){
-                    return document.querySelector('#form-1 #password').value;
-                }, 'Passwords do not match!'),
-                Validator.isRequireCheck('input[name="age"]',"Cannot be left blank!")
-            ],
-            onSubmit: function(data){
-                console.log(data);
-            }
-        });
-
-    </script>
+    <script type="module" src="validator.js"></script>
+    <script type="module" src="toastMessage.js"></script>
 
 </html>
