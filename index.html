@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="wrap">
+            <form action="" method="post" class="form" id="form-1" autocomplete="off">
+                <h2 class="title">SIGN UP</h2>
+
+                <div class="form-group form-group-1">
+                    <input type="text" name="username" id="username" placeholder="Username">
+                    <span class="form-warning"></span>
+                </div>
+
+                <div class="form-group form-group-1">
+                    <input type="email" name="email" id="email" placeholder="Email">
+                    <span class="form-warning"></span>
+                </div>
+
+                <div class="form-group form-group-1">
+                    <input type="password" name="password" id="password" placeholder="Password">
+                    <span class="form-warning"></span>
+                </div>
+
+                <div class="form-group form-group-1">
+                    <input type="password" name="passwordConfirm" id="password-confirm" placeholder="Confirm Password">
+                    <span class="form-warning"></span>
+                </div>
+
+                <div class="form-group confirmAge">
+                    <div class="wrapped">
+                        <div class="wrap-age">
+                            <input type="radio" name="age" value="over18" id="over18">
+                            <label class="form-label" for="enough">Over 18 years old</label>
+                        </div>
+
+                        <div class="wrap-age">
+                            <input type="radio" name="age" value="under18" id="under18">
+                            <label class="form-label" for="notEnough">Under 18 years old</label>
+                        </div>
+                    </div>
+                    <span class="form-warning"></span>
+                </div>
+
+                <button class="button">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="validator.js"></script>
+    <script>
+        
+        Validator({
+            chat: 'hello',
+            form: '#form-1',
+            errorBlock: '.form-warning',
+            group: '.form-group',
+            rules: [
+                Validator.isRequire('#username','Please enter your username!'),
+                Validator.isUsername('#username', 'Invalid username!'),
+                Validator.isRequire('#email', 'Please enter your email!'),
+                Validator.isEmail('#email', 'Invalid email!'),
+                Validator.isRequire('#password', 'Please enter your password!'),
+                Validator.isPasswordMinLength('#password', 6),
+                Validator.isRequire('#password-confirm','Please confirm your password!'),
+                Validator.isConfirmPassword('#password-confirm', function(){
+                    return document.querySelector('#form-1 #password').value;
+                }, 'Passwords do not match!'),
+                Validator.isRequireCheck('input[name="age"]',"Cannot be left blank!")
+            ],
+            onSubmit: function(data){
+                console.log(data);
+            }
+        });
+
+    </script>
+
+</html>
